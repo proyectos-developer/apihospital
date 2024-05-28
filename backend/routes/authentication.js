@@ -9,8 +9,16 @@ const bcrypt = require('bcryptjs')
 const passport = require('passport')
 const { isLoggedIn, isNotLoggedIn } = require('../lib/auth')
 
-router.post('/api/signup', function(req, res, next){
+router.post('/api/user/signup', function(req, res, next){
     passport.authenticate('local.signup', function (err, user, info) {
+        if (err) { return res.json({ success: false }) }
+        if (!user) { return res.json({ message: info, success: false }) }
+        if (user) { return res.json({ success: true, user: user }) }
+})(req, res, next)
+})
+
+router.post('/api/doctor/signup', function(req, res, next){
+    passport.authenticate('doctor.signup', function (err, user, info) {
         if (err) { return res.json({ success: false }) }
         if (!user) { return res.json({ message: info, success: false }) }
         if (user) { return res.json({ success: true, user: user }) }

@@ -2,6 +2,10 @@ CREATE DATABASE developer_ideas;
 
 USE developer_ideas;
 
+CREATE DATABASE developer_ideas;
+
+USE developer_ideas;
+
 /**Usuarios página**/
 CREATE TABLE users(
     id INT(11) NOT NULL,
@@ -18,6 +22,69 @@ ALTER TABLE users
     MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
 
 DESCRIBE users;
+
+/**Doctores página**/
+CREATE TABLE user_doctores(
+    id INT(11) NOT NULL,
+    correo VARCHAR (100) NOT NULL,
+    nro_telefono VARCHAR (100) NOT NULL,
+    password VARCHAR (60) NOT NULL,
+    usuario VARCHAR (100) NOT NULL,
+    created_at timestamp NOT NULL DEFAULT current_timestamp 
+);
+
+ALTER TABLE user_doctores
+    ADD PRIMARY KEY(id);
+
+ALTER TABLE user_doctores
+    MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
+
+DESCRIBE user_doctores;
+
+/**Info doctores**/
+CREATE TABLE info_doctores(
+    id INT(11) NOT NULL,
+    nombres VARCHAR (100) NOT NULL,
+    apellidos VARCHAR (100) NOT NULL,
+    fecha_nacimiento VARCHAR(100) NOT NULL,
+    genero VARCHAR (100) NOT NULL, 
+    especialidad VARCHAR (100) NOT NULL,
+    correo VARCHAR (100) NOT NULL,
+    nro_telefono VARCHAR (100) NOT NULL,
+    usuario VARCHAR (100) NOT NULL.,
+    created_at timestamp NOT NULL DEFAULT current_timestamp 
+);
+
+ALTER TABLE info_doctores
+    ADD PRIMARY KEY(id);
+
+ALTER TABLE info_doctores
+    MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
+
+DESCRIBE info_doctores;
+
+/**Info redes sociales doctores**/
+CREATE TABLE redes_doctores(
+    id INT(11) NOT NULL,
+    url_facebook VARCHAR (100) NOT NULL,
+    url_twitter VARCHAR (100) NOT NULL,
+    url_instagram VARCHAR(100) NOT NULL,
+    url_linkedin VARCHAR (100) NOT NULL, 
+    usuario VARCHAR (100) NOT NULL,,
+    created_at timestamp NOT NULL DEFAULT current_timestamp 
+);
+
+ALTER TABLE redes_doctores
+    ADD PRIMARY KEY(id);
+
+ALTER TABLE redes_doctores
+    MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
+
+DESCRIBE redes_doctores;
+
+
+
+
 
 /**Suscripción página**/
 CREATE TABLE suscripcion(
@@ -86,24 +153,6 @@ ALTER TABLE clientes
     MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
 
 DESCRIBE clientes;
-
-/**Info cliente página**/
-CREATE TABLE info_clientes(
-    id INT(11) NOT NULL,
-    nombres VARCHAR (100) NOT NULL,
-    apellidos VARCHAR (100) NOT NULL,
-    correo VARCHAR (100) NOT NULL,
-    nro_telefono VARCHAR (100) NOT NULL,
-    usuario VARCHAR (100) NOT NULL
-);
-
-ALTER TABLE info_clientes
-    ADD PRIMARY KEY(id);
-
-ALTER TABLE info_clientes
-    MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
-
-DESCRIBE info_clientes;
 
 /**cotizacion**/
 CREATE TABLE cotizacion(
