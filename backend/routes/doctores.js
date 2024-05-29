@@ -51,9 +51,10 @@ router.get ('/api/doctor/:usuario', async (req, res) => {
     
     try {
         const doctor = await pool.query ('SELECT * FROM info_doctores WHERE usuario = ?', [usuario])
-        
+        const red_doctor = await pool.query ('SELECT * FROM redes_doctores WHERE usuario = ?', [usuario])
         return res.json ({
             doctor: doctor[0],
+            red_doctor: red_doctor[0],
             success: true
         })
     } catch (error) {
@@ -145,6 +146,65 @@ router.get ('/api/doctores/search/:search/order/:orderby/:order/:begin/:amount',
             doctores: [],
             success: false
         })
+    }
+})
+
+router.post ('/api/red/doctor', async (req, res) => {
+    const {url_facebook, url_instagram, url_twitter, url_linkedin, usuario} = req.body
+
+    try {
+        const newRed = {url_facebook, url_instagram, url_twitter, url_linkedin, usuario}
+        const new_red = await pool.query ('INSERT INTO redes_doctores set ?', [newRed])
+        const red_doctor = await pool.query ('SELECT * FROM redes_doctores WHERE id = ?', [new_red.insertId])
+
+        return res.json ({
+            red_doctor: red_doctor[0],
+            success: true
+        })
+    } catch (error) {
+        console.log (error)
+        return res.json ({
+            success: false
+        })
+    }
+})
+
+router.post ('/api/red/doctor/:usuario', async (req, res) => {
+    const {usuario} = req.params
+    const {url_facebook, url_instagram, url_twitter, url_linkedin} = req.body
+
+    try {
+        const updateRed = {url_facebook, url_instagram, url_twitter, url_linkedin}
+        await pool.query ('UPDATE redes_doctores set ? WHERE usuario = ?', [updateRed, usuario])
+        const red_doctor = await pool.query ('SELECT * FROM redes_doctores WHERE usuario = ?', [usuario])
+
+        return res.json ({
+            red_doctor: red_doctor[0],
+            success: true
+        })
+    } catch (error) {
+        console.log (error)
+        return res.json ({
+            success: false
+        })
+    }
+})
+
+router.get ('/api/red/doctor/:usuario', async (req, res) => {
+    const {usuario} = req.params
+    console.log (usuario)
+    try {
+        const red_doctor = await pool.query ('SELECT * FROM redes_doctores WHERE usuario = ?', [usuario])
+        return res.json ({
+            red_doctor: red_doctor,
+            success: true
+        })
+    } catch (error) {
+        console.log (error)
+        return res.json ({
+            red_doctor: {},
+            success: false
+        })    
     }
 })
 

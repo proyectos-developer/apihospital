@@ -69,7 +69,7 @@ passport.use('doctor.signup', new LocalStrategy({
     passwordField: 'password',
     passReqToCallback: true
 }, async (req, correo, password, done) => {
-    const { usuario, nro_telefono, nombres } = req.body
+    const { usuario, nro_telefono } = req.body
     const newUser = {
         correo,
         password,
