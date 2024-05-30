@@ -58,10 +58,10 @@ app.use(require('./backend/routes/index.js'));
 app.use(require('./backend/routes/authentication.js'))
 
 app.use(require('./backend/routes/doctores.js'))
-app.use(require('./backend/routes/proyectos.js'))
+app.use(require('./backend/routes/calificaciones.js'))
 app.use(require('./backend/routes/correo.js'))
 app.use(require('./backend/routes/cotizacion.js'))
-app.use(require('./backend/routes/productos.js'))
+app.use(require('./backend/routes/pacientes.js'))
 app.use(require('./backend/routes/categorias.js'))
 app.use(require('./backend/routes/carrito.js'))
 

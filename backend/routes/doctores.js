@@ -5,9 +5,9 @@ const pool = require('../database')
 const { isLoggedIn } = require('../lib/auth')
 
 router.post ('/api/doctor', async (req, res) => {
-    const {nombres, apellidos, correo, nro_telefono, usuario, fecha_nacimiento, genero, especialidad, descripcion} = req.body
+    const {nombres, apellidos, correo, nro_telefono, usuario, fecha_nacimiento, genero, especialidad, descripcion, titulo_grado, estudios, direccion, pais, provincia, distrito} = req.body
     try {
-        const newDoctor = {nombres, apellidos, correo, nro_telefono, usuario, fecha_nacimiento, genero, especialidad, descripcion}
+        const newDoctor = {nombres, apellidos, correo, nro_telefono, usuario, fecha_nacimiento, genero, especialidad, descripcion, titulo_grado, estudios, direccion, pais, provincia, distrito}
         const new_doctor = await pool.query (`INSERT INTO info_doctores set ?`, [newDoctor])
         const doctor = await pool.query ('SELECT * FROM info_doctores WHERE id = ?', [new_doctor.insertId])
 
@@ -25,10 +25,10 @@ router.post ('/api/doctor', async (req, res) => {
 
 router.post ('/api/doctor/:usuario', async (req, res) => {
     const {usuario} = req.params
-    const {nombres, apellidos, correo, nro_telefono, fecha_nacimiento, genero, especialidad, descripcion} = req.body
+    const {nombres, apellidos, correo, nro_telefono, fecha_nacimiento, genero, especialidad, descripcion, titulo_grado, estudios, direccion, pais, provincia, distrito} = req.body
 
     try {
-        const updateDoctor = {nombres, apellidos, correo, nro_telefono, fecha_nacimiento, genero, especialidad, descripcion}
+        const updateDoctor = {nombres, apellidos, correo, nro_telefono, fecha_nacimiento, genero, especialidad, descripcion, titulo_grado, estudios, direccion, pais, provincia, distrito}
         
         await pool.query ('UPDATE info_doctores set ? WHERE usuario = ?', [updateDoctor, usuario])
         const doctor = await pool.query ('SELECT * FROM info_doctores WHERE usuario = ?', [usuario])

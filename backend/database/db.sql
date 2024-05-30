@@ -51,7 +51,12 @@ CREATE TABLE info_doctores(
     especialidad VARCHAR (100) NOT NULL,
     correo VARCHAR (100) NOT NULL,
     nro_telefono VARCHAR (100) NOT NULL,
-    usuario VARCHAR (100) NOT NULL.,
+    usuario VARCHAR (100) NOT NULL,
+    titulo_grado VARCHAR (100) NOT NULL,
+    direccion VARCHAR (500) NOT NULL,
+    pais VARCHAR (100) NOT NULL,
+    provincia VARCHAR (100) NOT NULL,
+    distrito VARCHAR (100) NOT NULL,
     created_at timestamp NOT NULL DEFAULT current_timestamp 
 );
 
@@ -81,6 +86,50 @@ ALTER TABLE redes_doctores
     MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
 
 DESCRIBE redes_doctores;
+
+/**Calificación doctores**/
+CREATE TABLE calificacion_doctores(
+    id INT(11) NOT NULL,
+    usuario_doctor VARCHAR (100) NOT NULL,
+    calificacion VARCHAR (100) NOT NULL,
+    usuario_paciente VARCHAR(100) NOT NULL,
+    created_at timestamp NOT NULL DEFAULT current_timestamp 
+);
+
+ALTER TABLE calificacion
+    ADD PRIMARY KEY(id);
+
+ALTER TABLE calificacion
+    MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
+
+DESCRIBE calificacion;
+
+/**Info pacientes**/
+CREATE TABLE info_pacientes(
+    id INT(11) NOT NULL,
+    nombres VARCHAR (100) NOT NULL,
+    apellidos VARCHAR (100) NOT NULL,
+    fecha_nacimiento VARCHAR(100) NOT NULL,
+    edad VARCHAR (20) NOT NULL,
+    genero VARCHAR (100) NOT NULL, 
+    correo VARCHAR (100) NOT NULL,
+    nro_telefono VARCHAR (100) NOT NULL,
+    descripcion VARCHAR (500) NOT NULL,
+    doctor VARCHAR (100) NOT NULL,
+    personal VARCHAR (100) NOT NULL,
+    pabellon VARCHAR (100) NOT NULL,
+    fecha_ingreso VARCHAR  (100) NOT NULL,
+    direccion VARCHAR (200) NOT NULL,
+    created_at timestamp NOT NULL DEFAULT current_timestamp 
+);
+
+ALTER TABLE info_pacientes
+    ADD PRIMARY KEY(id);
+
+ALTER TABLE info_pacientes
+    MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
+
+DESCRIBE info_pacientes;
 
 
 
