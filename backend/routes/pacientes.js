@@ -65,13 +65,78 @@ router.get ('/api/paciente/:id_paciente', async(req, res) => {
     }
 })
 
-router.get ('/api/pacientes', async (req, res) => {
+router.get ('/api/pacientes/search/:search/order/:orderby/:order/:begin/:amount', async (req, res) => {
+    const {search, orderby, order, begin, amount} = req.params
+
     try {
-        const pacientes = await pool.query ('SELECT * FROM info_pacientes ORDER BY nombres ASC')
-        return res.json ({
-            pacientes: pacientes,
-            success: true
-        })
+        if (search === '0' && orderby === '0'){
+            const pacientes = await pool.query (`SELECT * FROM info_pacientes LIMIT ${begin},${amount}`)
+            if (parseInt(begin) === 0){
+                const total_pacientes = await pool.query ('SELECT COUNT (id) FROM info_pacientes')
+                return res.json ({
+                    pacientes: pacientes,
+                    total_pacientes: total_pacientes[0][`COUNT (id)`],
+                    success: true
+                })
+            }else{
+                return res.json ({
+                    pacientes: pacientes,
+                    success: true
+                })
+            }
+        }else if (search === '0' && orderby !== '0'){
+            const pacientes = await pool.query (`SELECT * FROM info_pacientes  
+                        ORDER BY ${orderby} ${order} LIMIT ${begin},${amount}`)
+            if (parseInt(begin) === 0){
+                const total_pacientes = await pool.query ('SELECT COUNT (id) FROM info_pacientes')
+                return res.json ({
+                    pacientes: pacientes,
+                    total_pacientes: total_pacientes[0][`COUNT (id)`],
+                    success: true
+                })
+            }else{
+                return res.json ({
+                    pacientes: pacientes,
+                    success: true
+                })
+            }
+        }else if (search !== '0' && orderby === '0'){
+            const pacientes = await pool.query (`SELECT * FROM info_pacientes  
+                        WHERE nombres LIKE '%${search}%' OR apellidos LIKE '%${search}%' OR descripcion LIKE '%${search}%' LIMIT
+                        ${begin},${amount}`)
+            if (parseInt(begin) === 0){
+                const total_pacientes = await pool.query (`SELECT COUNT (id) FROM info_pacientes 
+                        WHERE nombres LIKE '%${search}%' OR apellidos LIKE '%${search}%' OR descripcion LIKE '%${search}%'`)
+                return res.json ({
+                    pacientes: pacientes,
+                    total_pacientes: total_pacientes[0][`COUNT (id)`],
+                    success: true
+                })
+            }else{
+                return res.json ({
+                    pacientes: pacientes,
+                    success: true
+                })
+            }
+        } else if (search !== '0' && orderby !== '0'){
+            const pacientes = await pool.query (`SELECT * FROM info_pacientes  
+                        WHERE nombres LIKE '%${search}%' OR apellidos LIKE '%${search}%' OR descripcion LIKE '%${search}%'
+                        ORDER BY ${orderby} ${order} LIMIT ${begin},${amount}`)
+            if (parseInt(begin) === 0){
+                const total_pacientes = await pool.query (`SELECT COUNT (id) FROM info_pacientes 
+                        WHERE nombres LIKE '%${search}%' OR apellidos LIKE '%${search}%' OR descripcion LIKE '%${search}%'`)
+                return res.json ({
+                    pacientes: pacientes,
+                    total_pacientes: total_pacientes[0][`COUNT (id)`],
+                    success: true
+                })
+            }else{
+                return res.json ({
+                    pacientes: pacientes,
+                    success: true
+                })
+            }
+        }    
     } catch (error) {
         console.log (error)
         return res.json ({
