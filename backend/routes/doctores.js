@@ -149,6 +149,25 @@ router.get ('/api/doctores/search/:search/order/:orderby/:order/:begin/:amount',
     }
 })
 
+router.get ('/api/delete/doctor/:id_doctor', async (req, res) => {
+    const {id_doctor} = req.params
+
+    try {
+        await pool.query ('DELETE FROM info_doctors WHERE id = ?', [id_doctor])
+        const doctores = await pool.query ('SELECT * FROM info_doctores ORDER BY nombres ASC')
+        return res.json ({
+            doctores: doctores,
+            success: true
+        })        
+    } catch (error) {
+        console.log (error)
+        return res.json ({
+            doctores: [],
+            success: false
+        })
+    }
+})
+
 router.post ('/api/red/doctor', async (req, res) => {
     const {url_facebook, url_instagram, url_twitter, url_linkedin, usuario} = req.body
 

@@ -227,7 +227,7 @@ router.get ('/api/valores/paciente/:id_valor', async (req, res) => {
     }
 })
 
-router.get ('/api/valores/paciente/:usuario/order/:order_by/:order/:begin/:amount', async (req, res) => {
+router.get ('/api/valores/pacientes/:usuario/order/:order_by/:order/:begin/:amount', async (req, res) => {
     const {order_by, order, begin, amount, usuario} = req.params
 
     try {
