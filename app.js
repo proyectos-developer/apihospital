@@ -59,11 +59,14 @@ app.use(require('./backend/routes/authentication.js'))
 
 app.use(require('./backend/routes/doctores.js'))
 app.use(require('./backend/routes/calificaciones.js'))
-app.use(require('./backend/routes/correo.js'))
-app.use(require('./backend/routes/cotizacion.js'))
+app.use(require('./backend/routes/facturas.js'))
 app.use(require('./backend/routes/pacientes.js'))
-app.use(require('./backend/routes/categorias.js'))
-app.use(require('./backend/routes/carrito.js'))
+app.use(require('./backend/routes/habitaciones.js'))
+app.use(require('./backend/routes/especialidades.js'))
+app.use(require('./backend/routes/pagos.js'))
+app.use(require('./backend/routes/citas.js'))
+app.use(require('./backend/routes/tareas.js'))
+app.use(require('./backend/routes/correo.js'))
 
 app.use(express.static(path.resolve(__dirname, './backend/views')));
 app.get ('/api', (req, res) => {

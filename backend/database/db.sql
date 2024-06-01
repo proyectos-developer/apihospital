@@ -120,6 +120,7 @@ CREATE TABLE info_pacientes(
     pabellon VARCHAR (100) NOT NULL,
     fecha_ingreso VARCHAR  (100) NOT NULL,
     direccion VARCHAR (200) NOT NULL,
+    usuario_paciente VARCHAR (100) NOT
     created_at timestamp NOT NULL DEFAULT current_timestamp 
 );
 
@@ -131,240 +132,162 @@ ALTER TABLE info_pacientes
 
 DESCRIBE info_pacientes;
 
-
-
-
-
-/**Suscripción página**/
-CREATE TABLE suscripcion(
+/**Info estado paciente**/
+CREATE TABLE valores_paciente(
     id INT(11) NOT NULL,
-    correo VARCHAR (100) NOT NULL,
-    created_at timestamp NOT NULL DEFAULT current_timestamp 
+    usuario_paciente VARCHAR (100) NOT NULL,
+    down_cluster VARCHAR (100) NOT NULL,
+    down_fiber VARCHAR(100) NOT NULL,
+    waterfowl_feathers VARCHAR (20) NOT NULL,
+    quill VARCHAR (100) NOT NULL, 
+    landfowl VARCHAR (100) NOT NULL,
+    blood_preasure VARCHAR (100) NOT NULL,
+    heart_beat VARCHAR (500) NOT NULL,
+    haemoglobin VARCHAR (100) NOT NULL,
+    sugar VARCHAR (100) NOT NULL,
+    created_at timestamp NOT NULL DEFAULT current_timestamp
 );
 
-ALTER TABLE suscripcion
+ALTER TABLE valores_paciente
     ADD PRIMARY KEY(id);
 
-ALTER TABLE suscripcion
+ALTER TABLE valores_paciente
     MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
 
-DESCRIBE suscripcion;
+DESCRIBE valores_paciente;
 
-/**Tipo Proyecto **/
-CREATE TABLE tipo_proyecto(
+/**Info tratamiento paciente**/
+CREATE TABLE tratamiento_pacientes(
     id INT(11) NOT NULL,
-    nombre VARCHAR (100) NOT NULL,
-    descripcion VARCHAR (500) NOT NULL,
-    created_at timestamp NOT NULL DEFAULT current_timestamp 
+    usuario_paciente VARCHAR (100) NOT NULL,
+    usuario_doctor VARCHAR (100) NOT NULL,
+    tratamiento VARCHAR(100) NOT NULL,
+    fecha VARCHAR (20) NOT NULL,
+    cargo VARCHAR (100) NOT NULL, 
+    created_at timestamp NOT NULL DEFAULT current_timestamp
 );
 
-ALTER TABLE tipo_proyecto
+ALTER TABLE tratamiento_pacientes
     ADD PRIMARY KEY(id);
 
-ALTER TABLE tipo_proyecto
+ALTER TABLE tratamiento_pacientes
     MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
 
-DESCRIBE tipo_proyecto;
+DESCRIBE tratamiento_pacientes;
 
-/**Proyectos **/
-CREATE TABLE proyectos(
+/**Info facturas paciente**/
+CREATE TABLE facturas_pacientes(
     id INT(11) NOT NULL,
-    tipo_proyecto VARCHAR (100) NOT NULL,
-    nombre_proyecto VARCHAR (100) NOT NULL,
-    cliente VARCHAR (100) NOT NULL,
-    descripcion VARCHAR (500) NOT NULL,
-    url_imagen VARCHAR (100) NOT NULL,
-    url_contenido VARCHAR (100) NOT NULL,
-    created_at timestamp NOT NULL DEFAULT current_timestamp 
+    numero VARCHAR (100) NOT NULL,
+    usuario_paciente VARCHAR (100) NOT NULL,
+    usuario_doctor VARCHAR (100) NOT NULL,
+    monto VARCHAR(100) NOT NULL,
+    estado VARCHAR (20) NOT NULL,
+    created_at timestamp NOT NULL DEFAULT current_timestamp
 );
 
-ALTER TABLE proyectos
+ALTER TABLE facturas_pacientes
     ADD PRIMARY KEY(id);
 
-ALTER TABLE proyectos
+ALTER TABLE facturas_pacientes
     MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
 
-DESCRIBE proyectos;
+DESCRIBE facturas_pacientes;
 
-/**Clientes página**/
-CREATE TABLE clientes(
+/**Info habitaciones pacientes**/
+CREATE TABLE habitaciones_pacientes(
     id INT(11) NOT NULL,
-    correo VARCHAR (100) NOT NULL,
-    nro_telefono VARCHAR (100) NOT NULL,
-    password VARCHAR (60) NOT NULL,
-    usuario VARCHAR (100) NOT NULL
+    numero VARCHAR (100) NOT NULL,
+    usuario_paciente VARCHAR (100) NOT NULL,
+    tipo_habitacion VARCHAR (100) NOT NULL,
+    fecha_inicio VARCHAR (100) NOT NULL,
+    fecha_cargo VARCHAR(100) NOT NULL,
+    foto_paciente VARCHAR (500) NOT NULL,
+    created_at timestamp NOT NULL DEFAULT current_timestamp
 );
 
-ALTER TABLE clientes
+ALTER TABLE habitaciones_pacientes
     ADD PRIMARY KEY(id);
 
-ALTER TABLE clientes
+ALTER TABLE habitaciones_pacientes
     MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
 
-DESCRIBE clientes;
+DESCRIBE habitaciones_pacientes;
 
-/**cotizacion**/
-CREATE TABLE cotizacion(
+/**Info especialidades**/
+CREATE TABLE especialidades(
     id INT(11) NOT NULL,
-    nro_cotizacion INT (11) NOT NULL,
-
-    cotizacion_domhost TINYINT (1) NOT NULL,
-    cotizacion_web TINYINT (1) NOT NULL,
-    cotizacion_app TINYINT (1) NOT NULL,
-    cotizacion_marketing TINYINT (1) NOT NULL,
-    cotizacion_software TINYINT (1) NOT NULL,
-    cotizacion_cloud TINYINT (1) NOT NULL,
-
-    tipo_negocio VARCHAR (100) NOT NULL,
-    nombres VARCHAR (100) NOT NULL,
-    rubro VARCHAR (100) NOT NULL,
-    nro_ruc VARCHAR (100) NOT NULL,
-    nro_telefono VARCHAR (100) NOT NULL,
-    correo VARCHAR (100) NOT NULL,
-    nombre_contacto VARCHAR (100) NOT NULL,
-
-    tipo_dominio VARCHAR (100) NOT NULL,
-    tipo_hosting VARCHAR (100) NOT NULL,
-    informacion_domhost VARCHAR (1000) NOT NULL,
-
-    tipo_web VARCHAR (100) NOT NULL,
-    pestania_nosotros TINYINT (1) NOT NULL,
-    pestania_servicios TINYINT (1) NOT NULL,
-    pestania_productos TINYINT (1) NOT NULL,
-    pestania_fotos TINYINT (1) NOT NULL,
-    pestania_videos TINYINT (1) NOT NULL,
-    pestania_contacto TINYINT (1) NOT NULL,
-    pestania_cotizacion TINYINT (1) NOT NULL,
-    pestania_tienda TINYINT (1) NOT NULL,
-    pestania_carrito TINYINT (1) NOT NULL,
-    pestania_pago TINYINT (1) NOT NULL,
-    pestania_seguimiento TINYINT (1) NOT NULL,
-    pestania_registro TINYINT (1) NOT NULL,
-    pestania_login TINYINT (1) NOT NULL,
-    pestania_perfil TINYINT (1) NOT NULL,
-    pestania_favoritos TINYINT (1) NOT NULL,
-    pestania_compras TINYINT (1) NOT NULL,
-    pestania_administracion TINYINT (1) NOT NULL,
-    informacion_web VARCHAR (1000) NOT NULL,
-
-    tipo_aplicacion VARCHAR (100) NOT NULL,
-    pantalla_login TINYINT (1) NOT NULL,
-    pantalla_registro TINYINT (1) NOT NULL,
-    pantalla_presentacion TINYINT (1) NOT NULL,
-    pantalla_perfil TINYINT (1) NOT NULL,
-    pantalla_productos TINYINT (1) NOT NULL,
-    pantalla_carrito TINYINT (1) NOT NULL,
-    pantalla_pago TINYINT (1) NOT NULL,
-    pantalla_ubicacion TINYINT (1) NOT NULL,
-    pantalla_localizacion TINYINT (1) NOT NULL,
-    pantalla_categorias TINYINT (1) NOT NULL,
-    pantalla_comentarios TINYINT (1) NOT NULL,
-    pantalla_galeria TINYINT (1) NOT NULL,
-    pantalla_chat TINYINT (1) NOT NULL,
-    pantalla_estadisticas TINYINT (1) NOT NULL,
-    pantalla_anuncios TINYINT (1) NOT NULL,
-    pantalla_informativa TINYINT (1) NOT NULL,
-    pantalla_calendario TINYINT (1) NOT NULL,
-    pantalla_agenda TINYINT (1) NOT NULL,
-    pantalla_favoritos TINYINT (1) NOT NULL,
-    pantalla_otro TINYINT (1) NOT NULL,
-    informacion_aplicacion VARCHAR (1000) NOT NULL,
-    
-    tipo_marketing VARCHAR (100) NOT NULL,
-    informacion_marketing VARCHAR (1000) NOT NULL,
-    
-    tipo_software VARCHAR (100) NOT NULL,
-    informacion_software VARCHAR (1000) NOT NULL,
-    
-    tipo_cloud VARCHAR (100) NOT NULL,
-    informacion_cloud VARCHAR (1000) NOT NULL,
-
-    usuario VARCHAR (100) NOT NULL
-);
-
-ALTER TABLE cotizacion
-    ADD PRIMARY KEY(id);
-
-ALTER TABLE cotizacion
-    MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
-
-DESCRIBE cotizacion;
-
-/**Productos**/
-CREATE TABLE producto(
-    id INT(11) NOT NULL,
-    producto VARCHAR (100) NOT NULL,
+    nombre_especialidad VARCHAR (100) NOT NULL,
+    doctor_acargo VARCHAR (100) NOT NULL,
     descripcion VARCHAR (100) NOT NULL,
-    caracteristica_1 VARCHAR (100) NOT NULL,
-    caracteristica_2 VARCHAR (100) NOT NULL,
-    caracteristica_3 VARCHAR (100) NOT NULL,
-    caracteristica_4 VARCHAR (100) NOT NULL,
-    caracteristica_5 VARCHAR (100) NOT NULL,
-    caracteristica_6 VARCHAR (100) NOT NULL,
-    caracteristica_7 VARCHAR (100) NOT NULL,
-    caracteristica_8 VARCHAR (100) NOT NULL,
-    caracteristica_9 VARCHAR (100) NOT NULL,
-    caracteristica_10 VARCHAR (100) NOT NULL,
-    caracteristica_11 VARCHAR (100) NOT NULL,
-    caracteristica_12 VARCHAR (100) NOT NULL,
-    caracteristica_13 VARCHAR (100) NOT NULL,
-    caracteristica_14 VARCHAR (100) NOT NULL,
-    caracteristica_15 VARCHAR (100) NOT NULL,
-    caracteristica_16 VARCHAR (100) NOT NULL,
-    caracteristica_17 VARCHAR (100) NOT NULL,
-    caracteristica_18 VARCHAR (100) NOT NULL,
-    caracteristica_19 VARCHAR (100) NOT NULL,
-    caracteristica_20 VARCHAR (100) NOT NULL,
-    id_categoria INT (11) NOT NULL,
-    categoria VARCHAR (100) NOT NULL,
-    servicio VARCHAR (100) NOT NULL,
-    foto TEXT NOT NULL,
-    precio DOUBLE NOT NULL,
-    oferta DOUBLE NOT NULL,
-    precio_mensual DOUBLE NOT NULL,
-    precio_anual DOUBLE NOT NULL,
-    comentarios VARCHAR (100) NOT NULL,
-    created_at timestamp NOT NULL DEFAULT current_timestamp 
+    created_at timestamp NOT NULL DEFAULT current_timestamp
 );
 
-ALTER TABLE producto
+ALTER TABLE especialidades
     ADD PRIMARY KEY(id);
 
-ALTER TABLE producto
+ALTER TABLE especialidades
     MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
 
-DESCRIBE producto;
+DESCRIBE especialidades;
 
-/**Categorías**/
-CREATE TABLE categorias(
+/**Info pagos**/
+CREATE TABLE pagos(
     id INT(11) NOT NULL,
-    categoria VARCHAR (100) NOT NULL,
-    descripcion VARCHAR (100) NOT NULL,
-    created_at timestamp NOT NULL DEFAULT current_timestamp 
+    fecha_pago VARCHAR (100) NOT NULL,
+    usuario_paciente VARCHAR (100) NOT NULL,
+    usuario_doctor VARCHAR (100) NOT NULL,
+    cargos VARCHAR (100) NOT NULL,
+    impuesto VARCHAR (100) NOT NULL,
+    descuento VARCHAR (100) NOT NULL,
+    created_at timestamp NOT NULL DEFAULT current_timestamp
 );
 
-ALTER TABLE categorias
+ALTER TABLE pagos
     ADD PRIMARY KEY(id);
 
-ALTER TABLE categorias
+ALTER TABLE pagos
     MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
 
-DESCRIBE categorias;
+DESCRIBE pagos;
 
-/**Carrito compras**/
-CREATE TABLE carrito(
+/**Info citas**/
+CREATE TABLE citas(
     id INT(11) NOT NULL,
-    id_producto INT(11) NOT NULL,
-    producto VARCHAR (100) NOT NULL,
-    usuario VARCHAR (100) NOT NULL,
-    shop_id VARCHAR (100) NOT NULL,
-    created_at timestamp NOT NULL DEFAULT current_timestamp 
+    nombre_paciente VARCHAR (100) NOT NULL,
+    nro_telefono VARCHAR (100) NOT NULL,
+    correo VARCHAR (100) NOT NULL,
+    fecha VARCHAR (100) NOT NULL,
+    hora VARCHAR (100) NOT NULL,
+    usuario_doctor VARCHAR (100) NOT NULL,
+    condicion_medica VARCHAR (100) NOT NULL,
+    created_at timestamp NOT NULL DEFAULT current_timestamp
 );
 
-ALTER TABLE carrito
+ALTER TABLE citas
     ADD PRIMARY KEY(id);
 
-ALTER TABLE carrito
+ALTER TABLE citas
     MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
 
-DESCRIBE carrito;
+DESCRIBE citas;
+
+/**Info tareas**/
+CREATE TABLE tareas(
+    id INT(11) NOT NULL,
+    nombre_tarea VARCHAR (100) NOT NULL,
+    usuario_paciente VARCHAR (100) NOT NULL,
+    detalles_tarea VARCHAR (500) NOT NULL,
+    equipo_acargo VARCHAR (100) NOT NULL,
+    hora VARCHAR (100) NOT NULL,
+    fecha VARCHAR (100) NOT NULL,
+    created_at timestamp NOT NULL DEFAULT current_timestamp
+);
+
+ALTER TABLE tareas
+    ADD PRIMARY KEY(id);
+
+ALTER TABLE tareas
+    MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
+
+DESCRIBE tareas;
