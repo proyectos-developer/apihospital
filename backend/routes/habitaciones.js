@@ -65,7 +65,7 @@ router.get ('/api/habitacion/paciente/:usuario', async (req, res) => {
     }
 })
 
-router.get ('/api/habitacion/paciente/search/:search/order/:order_by/:order/:begin/:amount', async (req, res) => {
+router.get ('/api/habitaciones/pacientes/search/:search/order/:order_by/:order/:begin/:amount', async (req, res) => {
     const {search, order_by, order, begin, amount} = req.params
 
     try {
