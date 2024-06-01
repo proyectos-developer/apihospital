@@ -332,7 +332,7 @@ router.get ('/api/tratamiento/paciente/:id_tratamiento', async (req, res) => {
     }
 })
 
-router.get ('/api/tratamiento/paciente/:usuario/order/:order_by/:order/:begin/:amount', async (req, res) => {
+router.get ('/api/tratamientos/paciente/:usuario/order/:order_by/:order/:begin/:amount', async (req, res) => {
     const {usuario, order_by, order, begin, amount} = req.params
 
     try {
