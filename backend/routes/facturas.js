@@ -160,4 +160,22 @@ router.get ('/api/facturas/pacientes/search/:search/order/:order_by/:order/:begi
     }
 })
 
+router.delete ('/api/delete/factura/:id_factura', async (req, res) => {
+    const {id_factura} = req.params
+
+    try {
+        await pool.query ('DELETE FROM facturas WHERE id = ?', [id_factura])
+
+        return res.json ({
+            success: true
+        })
+    } catch (error) {
+        console.log (error)
+        return res.json ({
+            error: error,
+            success: false
+        })
+    }
+})
+
 module.exports = router
