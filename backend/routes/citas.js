@@ -119,4 +119,22 @@ router.get ('/api/citas/search/:search/order/:order_by/:order/:begin/:amount', a
     }
 })
 
+router.delete ('/api/delete/cita/:id_cita', async (req, res) => {
+    const {id_cita} = req.params
+
+    try {
+        await pool.query ('DELETE FROM citas WHERE id = ?', [id_cita])
+
+        return res.json ({
+            success: true
+        })
+    } catch (error) {
+        console.log (error)
+        return res.json ({
+            error: error,
+            success: false
+        })
+    }
+})
+
 module.exports = router
