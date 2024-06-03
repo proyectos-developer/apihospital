@@ -5,10 +5,10 @@ const pool = require('../database')
 const { isLoggedIn } = require('../lib/auth')
 
 router.post ('/api/cita', async (req, res) => {
-    const {nombre_paciente, nro_telefono, correo, fecha, hora, usuario_doctor, condicion_medica} = req.body
+    const {nombre_paciente, genero, nro_telefono, correo, fecha, hora, usuario_doctor, condicion_medica} = req.body
 
     try {
-        const newCita = {nombre_paciente, nro_telefono, correo, fecha, hora, usuario_doctor, condicion_medica}
+        const newCita = {nombre_paciente, genero, nro_telefono, correo, fecha, hora, usuario_doctor, condicion_medica}
 
         const new_cita = await pool.query ('INSERT INTO citas set ?', [newCita])
         const cita = await pool.query ('SELECT * FROM citas WHERE id = ?', [new_cita.insertId])
@@ -27,10 +27,10 @@ router.post ('/api/cita', async (req, res) => {
 
 router.post ('/api/cita/:id_cita', async (req, res) => {
     const {id_cita} = req.params
-    const {nombre_paciente, nro_telefono, correo, fecha, hora, usuario_doctor, condicion_medica} = req.body
+    const {nombre_paciente, genero, nro_telefono, correo, fecha, hora, usuario_doctor, condicion_medica} = req.body
 
     try {
-        const newCita = {nombre_paciente, nro_telefono, correo, fecha, hora, usuario_doctor, condicion_medica}
+        const newCita = {nombre_paciente, genero, nro_telefono, correo, fecha, hora, usuario_doctor, condicion_medica}
 
         await pool.query ('UPDATE citas set ? WHERE id = ?', [newCita, id_cita])
         const cita = await pool.query ('SELECT * FROM citas WHERE id = ?', [id_cita])
