@@ -164,9 +164,10 @@ router.delete ('/api/delete/factura/:id_factura', async (req, res) => {
     const {id_factura} = req.params
 
     try {
-        await pool.query ('DELETE FROM facturas WHERE id = ?', [id_factura])
-
+        await pool.query ('DELETE FROM facturas_pacientes WHERE id = ?', [id_factura])
+        const facturas  = await pool.query ('SELECT * FROM facturas_pacientes ORDER BY fecha_emitida DESC, hora DESC')
         return res.json ({
+            facturas: facturas,
             success: true
         })
     } catch (error) {
