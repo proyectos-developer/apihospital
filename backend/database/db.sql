@@ -199,7 +199,7 @@ CREATE TABLE habitaciones_pacientes(
     id INT(11) NOT NULL,
     numero VARCHAR (100) NOT NULL,
     usuario_paciente VARCHAR (100) NOT NULL,
-    tipo_habitacion VARCHAR (100) NOT NULL,
+    id_habitacion INT (11) NOT NULL,
     fecha_inicio VARCHAR (100) NOT NULL,
     fecha_cargo VARCHAR(100) NOT NULL,
     foto_paciente VARCHAR (500) NOT NULL,
@@ -291,3 +291,21 @@ ALTER TABLE tareas
     MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
 
 DESCRIBE tareas;
+
+/**Info tipo habitación**/
+CREATE TABLE tipo_habitacion(
+    id INT(11) NOT NULL,
+    nombre VARCHAR (100) NOT NULL,
+    departamento VARCHAR (100) NOT NULL,
+    cantidad VARCHAR (100) NOT NULL,
+    disponibles VARCHAR (100) NOT NULL,
+    created_at timestamp NOT NULL DEFAULT current_timestamp
+);
+
+ALTER TABLE tipo_habitacion
+    ADD PRIMARY KEY(id);
+
+ALTER TABLE tipo_habitacion
+    MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
+
+DESCRIBE tipo_habitacion;
