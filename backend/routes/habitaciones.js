@@ -5,10 +5,10 @@ const pool = require('../database')
 const { isLoggedIn } = require('../lib/auth')
 
 router.post ('/api/habitacion/paciente', async (req, res) => {
-    const {numero, usuario_paciente, tipo_habitacion, fecha_inicio, fecha_cargo, foto_paciente} = req.body
+    const {numero, usuario_paciente, tipo_habitacion, fecha_inicio, fecha_alta, foto_paciente} = req.body
 
     try {
-        const newHabitacion = {numero, usuario_paciente, tipo_habitacion, fecha_inicio, fecha_cargo, foto_paciente}
+        const newHabitacion = {numero, usuario_paciente, tipo_habitacion, fecha_inicio, fecha_alta, foto_paciente}
 
         const new_habitacion = await pool.query ('INSERT INTO habitaciones_pacientes set ?', [newHabitacion])
         const habitacion = await pool.query ('SELECT * FROM habitaciones_pacientes WHERE id = ?', [new_habitacion.insertId])
@@ -27,10 +27,10 @@ router.post ('/api/habitacion/paciente', async (req, res) => {
 
 router.post ('/api/habitacion/paciente/:usuario', async (req, res) => {
     const {usuario} = req.params
-    const {numero, tipo_habitacion, fecha_inicio, fecha_cargo, foto_paciente} = req.body
+    const {numero, tipo_habitacion, fecha_inicio, fecha_alta, foto_paciente} = req.body
 
     try {
-        const newHabitacion = {numero, tipo_habitacion, fecha_inicio, fecha_cargo, foto_paciente}
+        const newHabitacion = {numero, tipo_habitacion, fecha_inicio, fecha_alta, foto_paciente}
 
         await pool.query ('UPDATE habitaciones_pacientes set ? WHERE usuario_paciente = ?', [newHabitacion, usuario])
         const habitacion = await pool.query ('SELECT * FROM habitaciones_pacientes WHERE usuario_paciente = ?', [usuario])
