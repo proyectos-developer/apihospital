@@ -65,11 +65,11 @@ router.get ('/api/pago/:id_pago', async (req, res) => {
     }
 })
 
-router.get ('/api/pagos/order/:order_by/:order/:begin/:amount', async (req, res) => {
-    const {order_by, order, begin, amount} = req.params
+router.get ('/api/pagos/search/:search/order/:order_by/:order/:begin/:amount', async (req, res) => {
+    const {search, order_by, order, begin, amount} = req.params
 
     try {
-        if (order_by === '0'){
+        if (search === '0' && order_by === '0'){
             const pagos = await pool.query (`SELECT * FROM pagos ORDER BY fecha_pago DESC LIMIT ${begin},${amount}`)
             if (parseInt(begin) === 0){
                 const total_pagos = await pool.query (`SELECT COUNT (id) FROM pagos`)
@@ -79,10 +79,30 @@ router.get ('/api/pagos/order/:order_by/:order/:begin/:amount', async (req, res)
                     success: true
                 })
             }
-        }else if (order_by !== '0'){
+        }else if (search === '0' && order_by !== '0'){
             const pagos = await pool.query (`SELECT * FROM pagos ORDER BY ${order_by} ${order} LIMIT ${begin},${amount}`)
             if (parseInt(begin) === 0){
                 const total_pagos = await pool.query (`SELECT COUNT (id) FROM pagos`)
+                return res.json ({
+                    pagos: pagos,
+                    total_pagos: total_pagos[0][`COUNT (id)`],
+                    success: true
+                })
+            }
+        }else if (search !== '0' && order_by === '0'){
+            const pagos = await pool.query (`SELECT * FROM pagos WHERE numero LIKE '%${search}%' OR fecha_pago LIKE '%${search}%' ORDER BY fecha_pago DESC LIMIT ${begin},${amount}`)
+            if (parseInt(begin) === 0){
+                const total_pagos = await pool.query (`SELECT COUNT (id) FROM pagos WHERE numero LIKE '%${search}%' OR fecha_pago LIKE '%${search}%'`)
+                return res.json ({
+                    pagos: pagos,
+                    total_pagos: total_pagos[0][`COUNT (id)`],
+                    success: true
+                })
+            }
+        }else if (search !== '0' && order_by !== '0'){
+            const pagos = await pool.query (`SELECT * FROM pagos WHERE numero LIKE '%${search}%' OR fecha_pago LIKE '%${search}%' ORDER BY ${order_by} ${order} LIMIT ${begin},${amount}`)
+            if (parseInt(begin) === 0){
+                const total_pagos = await pool.query (`SELECT COUNT (id) FROM pagos WHERE numero LIKE '%${search}%' OR fecha_pago LIKE '%${search}%'`)
                 return res.json ({
                     pagos: pagos,
                     total_pagos: total_pagos[0][`COUNT (id)`],
