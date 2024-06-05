@@ -119,6 +119,27 @@ router.get ('/api/habitaciones/pacientes/search/:search/order/:order_by/:order/:
     }
 })
 
+router.get ('/api/delete/habitaicon/paciente/:id_habitacion', async (req, res) => {
+    const {id_habitacion} = req.params
+
+    try {
+        await pool.query ('DELETE FROM habitaciones_pacientes WHERE id = ?', [id_habitacion])
+        const habitaciones = await pool.query ('SELECT * FROM habitaciones_pacientes ORDER BY numero ASC LIMIT 0, 16')
+        const total_habitaciones = await pool.query (`SELECT COUNT (id) FROM habitaciones_pacientes`)
+        return res.json ({
+            habitaciones: habitaciones,
+            total_habitaciones: total_habitaciones[0][`COUNT (id)`],
+            success: true
+        })
+    } catch (error) {
+        console.log (error)
+        return res.json ({
+            habitaciones: [],
+            success: false
+        })
+    }
+})
+
 router.post ('/api/tipo/habitacion', async (req, res) => {
     const {nombre, cantidad, disponibles, departamento} = req.body
 
