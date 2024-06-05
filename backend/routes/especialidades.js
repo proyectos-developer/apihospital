@@ -65,11 +65,11 @@ router.get ('/api/especialidad/:id_especialidad', async (req, res) => {
     }
 })
 
-router.get ('/api/especialidades/order/:order_by/:order/:begin/:amount', async (req, res) => {
-    const {order_by, order, begin, amount} = req.params
+router.get ('/api/especialidades/search/:search/order/:order_by/:order/:begin/:amount', async (req, res) => {
+    const {search, order_by, order, begin, amount} = req.params
 
     try {
-        if (order_by === '0'){
+        if (search === '0' && order_by === '0'){
             const especialidades = await pool.query (`SELECT * FROM especialidades ORDER BY nombre_especialidad ASC LIMIT ${begin},${amount}`)
             if (parseInt(begin) === 0){
                 const total_especialidades = await pool.query (`SELECT COUNT (id) FROM especialidades`)
@@ -79,10 +79,30 @@ router.get ('/api/especialidades/order/:order_by/:order/:begin/:amount', async (
                     success: true
                 })
             }
-        }else if (order_by !== '0'){
+        }else if (search === '0' && order_by !== '0'){
             const especialidades = await pool.query (`SELECT * FROM especialidades ORDER BY ${order_by} ${order} LIMIT ${begin},${amount}`)
             if (parseInt(begin) === 0){
                 const total_especialidades = await pool.query (`SELECT COUNT (id) FROM especialidades`)
+                return res.json ({
+                    especialidades: especialidades,
+                    total_especialidades: total_especialidades[0][`COUNT (id)`],
+                    success: true
+                })
+            }
+        }else if (search !== '0' && order_by === '0'){
+            const especialidades = await pool.query (`SELECT * FROM especialidades WHERE nombre_especialidad LIKE '%${search}%' OR descripcion LIKE '%${search}%' ORDER BY nombre_especialidad ASC LIMIT ${begin},${amount}`)
+            if (parseInt(begin) === 0){
+                const total_especialidades = await pool.query (`SELECT COUNT (id) FROM especialidades WHERE nombre_especialidad LIKE '%${search}%' OR descripcion LIKE '%${search}%'`)
+                return res.json ({
+                    especialidades: especialidades,
+                    total_especialidades: total_especialidades[0][`COUNT (id)`],
+                    success: true
+                })
+            }
+        }else if (search !== '0' && order_by !== '0'){
+            const especialidades = await pool.query (`SELECT * FROM especialidades WHERE nombre_especialidad LIKE '%${search}%' OR descripcion LIKE '%${search}%' ORDER BY ${order_by} ${order} LIMIT ${begin},${amount}`)
+            if (parseInt(begin) === 0){
+                const total_especialidades = await pool.query (`SELECT COUNT (id) FROM especialidades WHERE nombre_especialidad LIKE '%${search}%' OR descripcion LIKE '%${search}%'`)
                 return res.json ({
                     especialidades: especialidades,
                     total_especialidades: total_especialidades[0][`COUNT (id)`],
