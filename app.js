@@ -66,6 +66,7 @@ app.use(require('./backend/routes/especialidades.js'))
 app.use(require('./backend/routes/pagos.js'))
 app.use(require('./backend/routes/citas.js'))
 app.use(require('./backend/routes/tareas.js'))
+app.use(require('./backend/routes/notas.js'))
 app.use(require('./backend/routes/correo.js'))
 
 app.use(express.static(path.resolve(__dirname, './backend/views')));

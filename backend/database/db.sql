@@ -309,3 +309,21 @@ ALTER TABLE tipo_habitacion
     MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
 
 DESCRIBE tipo_habitacion;
+
+/**Info notas**/
+CREATE TABLE notas(
+    id INT(11) NOT NULL,
+    nombre VARCHAR (100) NOT NULL,
+    usuario_doctor VARCHAR (100) NOT NULL,
+    star VARCHAR (100) NOT NULL,
+    nota VARCHAR (100) NOT NULL,
+    created_at timestamp NOT NULL DEFAULT current_timestamp
+);
+
+ALTER TABLE notas
+    ADD PRIMARY KEY(id);
+
+ALTER TABLE notas
+    MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
+
+DESCRIBE notas;
