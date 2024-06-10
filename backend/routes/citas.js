@@ -124,7 +124,7 @@ router.delete ('/api/delete/cita/:id_cita', async (req, res) => {
 
     try {
         await pool.query ('DELETE FROM citas WHERE id = ?', [id_cita])
-        const citas  = await pool.query ('SELECT * FROM citas ORDER BY fecha DESC, hora DESC')
+        const citas  = await pool.query ('SELECT * FROM citas ORDER BY created_at DESC, hora DESC')
         return res.json ({
             citas: citas,
             success: true

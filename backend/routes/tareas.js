@@ -124,7 +124,7 @@ router.get('/api/delete/tarea/:id_tarea', async(req, res) => {
 
     try {
         await pool.query ('DELETE FROM tareas WHERE id = ?', [id_tarea])
-        const tareas = await pool.query ('SELECT * FROM tareas ORDER BY fecha LIMIT 0,16')
+        const tareas = await pool.query ('SELECT * FROM tareas ORDER BY created_at DESC LIMIT 0,16')
         const total_tareas = await pool.query (`SELECT COUNT (id) FROM tareas`)
         return res.json ({
             tareas: tareas,

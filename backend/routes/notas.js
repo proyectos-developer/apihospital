@@ -124,7 +124,7 @@ router.get('/api/delete/nota/:id_nota', async(req, res) => {
 
     try {
         await pool.query ('DELETE FROM notas WHERE id = ?', [id_nota])
-        const notas = await pool.query ('SELECT * FROM notas ORDER BY fecha LIMIT 0,16')
+        const notas = await pool.query ('SELECT * FROM notas ORDER BY created_at DESC LIMIT 0,16')
         const total_notas = await pool.query (`SELECT COUNT (id) FROM notas`)
         return res.json ({
             notas: notas,

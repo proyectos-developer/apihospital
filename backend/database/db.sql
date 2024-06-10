@@ -327,3 +327,57 @@ ALTER TABLE notas
     MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
 
 DESCRIBE notas;
+
+/**Info personal**/
+CREATE TABLE personal(
+    id INT(11) NOT NULL,
+    nombre VARCHAR (100) NOT NULL,
+    apellidos VARCHAR (100) NOT NULL,
+    genero VARCHAR (100) NOT NULL,
+    nro_telefono VARCHAR (100) NOT NULL,
+    correo VARCHAR (100) NOT NULL,
+    direccion VARCHAR (500) NOT NULL,
+    designacion VARCHAR (100) NOT NULL,
+    especialidad VARCHAR (100) NOT NULL,
+    fecha_ingreso VARCHAR(100) NOT NULL,
+    fecha_nacimiento VARCHAR(100) NOT NULL,
+    tipo_documento VARCHAR (100) NOT NULL,
+    nro_documento VARCHAR (100) NOT NULL,
+    created_at timestamp NOT NULL DEFAULT current_timestamp
+);
+
+ALTER TABLE personal
+    ADD PRIMARY KEY(id);
+
+ALTER TABLE personal
+    MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
+
+DESCRIBE personal;
+
+/**Info contactos**/
+CREATE TABLE contactos(
+    id INT(11) NOT NULL,
+    nombre VARCHAR (100) NOT NULL,
+    apellidos VARCHAR (100) NOT NULL,
+    genero VARCHAR (100) NOT NULL,
+    nro_telefono VARCHAR (100) NOT NULL,
+    correo VARCHAR (100) NOT NULL,
+    especialidad VARCHAR (100) NOT NULL,
+    fecha_nacimiento VARCHAR(100) NOT NULL,
+    tipo_documento VARCHAR (100) NOT NULL,
+    nro_documento VARCHAR (100) NOT NULL,
+    facebook VARCHAR (100) NOT NULL,
+    instagram VARCHAR (100) NOT NULL,
+    twitter VARCHAR (100) NOT NULL,
+    linkedin VARCHAR (100) NOT NULL,
+    tiktok VARCHAR (100) NOT NULL,
+    created_at timestamp NOT NULL DEFAULT current_timestamp
+);
+
+ALTER TABLE contactos
+    ADD PRIMARY KEY(id);
+
+ALTER TABLE contactos
+    MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
+
+DESCRIBE contactos;
