@@ -96,13 +96,13 @@ CREATE TABLE calificacion_doctores(
     created_at timestamp NOT NULL DEFAULT current_timestamp 
 );
 
-ALTER TABLE calificacion
+ALTER TABLE calificacion_doctores
     ADD PRIMARY KEY(id);
 
-ALTER TABLE calificacion
+ALTER TABLE calificacion_doctores
     MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
 
-DESCRIBE calificacion;
+DESCRIBE calificacion_doctores;
 
 /**Info pacientes**/
 CREATE TABLE info_pacientes(
@@ -120,7 +120,7 @@ CREATE TABLE info_pacientes(
     pabellon VARCHAR (100) NOT NULL,
     fecha_ingreso VARCHAR  (100) NOT NULL,
     direccion VARCHAR (200) NOT NULL,
-    usuario_paciente VARCHAR (100) NOT
+    usuario_paciente VARCHAR (100) NOT NULL,
     created_at timestamp NOT NULL DEFAULT current_timestamp 
 );
 
